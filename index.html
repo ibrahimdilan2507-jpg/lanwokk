@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AROMA — Coffee & Roastery</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#f7f3ed;
+  --dark:#17130f;
+  --brown:#7b4b2a;
+  --cream:#e9dfd1;
+  --text:#29231e;
+  --muted:#81776e;
+  --white:#fff;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0
+}
+
+html{
+  scroll-behavior:smooth
+}
+
+body{
+  font-family:"DM Sans",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden
+}
+
+a{
+  text-decoration:none;
+  color:inherit
+}
+
+button,input{
+  font-family:inherit
+}
+
+button{
+  cursor:pointer
+}
+
+img{
+  width:100%;
+  display:block;
+  object-fit:cover
+}
+
+/* LOADER */
+.loader{
+  position:fixed;
+  inset:0;
+  background:var(--dark);
+  color:#fff;
+  z-index:9999;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  transition:.6s
+}
+
+.loader.hide{
+  opacity:0;
+  visibility:hidden
+}
+
+.coffee-loader{
+  font-size:50px;
+  animation:bounce 1s infinite
+}
+
+.loader p{
+  margin-top:10px;
+  letter-spacing:8px;
+  font-size:13px
+}
+
+@keyframes bounce{
+  50%{
+    transform:translateY(-15px)
+  }
+}
+
+/* NAVBAR */
+.navbar{
+  height:80px;
+  padding:0 7%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:1000;
+  background:rgba(247,243,237,.88);
+  backdrop-filter:blur(15px)
+}
+
+.logo,
+.footer-logo{
+  font-family:"Playfair Display",serif;
+  font-size:27px;
+  font-weight:700
+}
+
+.logo span,
+.footer-logo span,
+h1 span,
+h2 span{
+  color:var(--brown)
+}
+
+nav{
+  display:flex;
+  gap:35px
+}
+
+nav a{
+  font-size:14px;
+  color:#625950;
+  transition:.3s
+}
+
+nav a:hover{
+  color:var(--brown)
+}
+
+.cart-btn{
+  border:0;
+  background:var(--dark);
+  color:#fff;
+  border-radius:50px;
+  padding:11px 17px;
+  font-size:15px
+}
+
+.menu-toggle{
+  display:none;
+  background:none;
+  border:0;
+  font-size:25px
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;
+  padding:150px 7% 80px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  align-items:center;
+  gap:50px
+}
+
+.eyebrow{
+  color:var(--brown);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:3px;
+  margin-bottom:18px
+}
+
+h1,
+h2{
+  font-family:"Playfair Display",serif
+}
+
+h1{
+  font-size:clamp(55px,7vw,100px);
+  line-height:.95;
+  max-width:700px
+}
+
+.hero-text{
+  max-width:500px;
+  color:var(--muted);
+  line-height:1.8;
+  margin:30px 0
+}
+
+.hero-buttons{
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap
+}
+
+.btn{
+  display:inline-block;
+  padding:15px 24px;
+  border-radius:50px;
+  border:1px solid transparent;
+  font-size:14px;
+  transition:.3s
+}
+
+.primary{
+  background:var(--dark);
+  color:#fff
+}
+
+.primary:hover{
+  transform:translateY(-3px);
+  background:var(--brown)
+}
+
+.secondary{
+  border-color:#cfc5b9
+}
+
+.secondary:hover{
+  background:var(--cream)
+}
+
+.stats{
+  display:flex;
+  gap:45px;
+  margin-top:65px
+}
+
+.stats div{
+  display:flex;
+  flex-direction:column
+}
+
+.stats strong{
+  font-family:"Playfair Display";
+  font-size:27px
+}
+
+.stats span{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:4px
+}
+
+.hero-image{
+  position:relative;
+  max-width:570px;
+  justify-self:center
+}
+
+.hero-image img{
+  height:650px;
+  border-radius:300px 300px 20px 20px;
+  position:relative;
+  z-index:2
+}
+
+.circle{
+  width:250px;
+  height:250px;
+  background:var(--cream);
+  border-radius:50%;
+  position:absolute;
+  right:-70px;
+  top:-40px
+}
+
+/* FEATURE */
+.feature{
+  padding:25px 7% 80px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px
+}
+
+.feature-card{
+  padding:28px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  border-radius:18px
+}
+
+.feature-icon{
+  width:50px;
+  height:50px;
+  background:var(--cream);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:21px
+}
+
+.feature-card h3{
+  font-size:15px
+}
+
+.feature-card p{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:5px
+}
+
+/* SECTION */
+.menu-section,
+.gallery-section,
+.reviews{
+  padding:110px 7%
+}
+
+.section-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:30px;
+  margin-bottom:45px
+}
+
+.section-heading h2,
+.about h2,
+.contact h2{
+  font-size:clamp(40px,5vw,65px);
+  line-height:1
+}
+
+.section-heading>p{
+  max-width:380px;
+  color:var(--muted);
+  line-height:1.7
+}
+
+.center{
+  display:block;
+  text-align:center
+}
+
+/* CATEGORY */
+.category-buttons{
+  display:flex;
+  gap:10px;
+  margin-bottom:35px;
+  flex-wrap:wrap
+}
+
+.category-buttons button{
+  border:1px solid #d8cec2;
+  background:transparent;
+  padding:10px 20px;
+  border-radius:50px
+}
+
+.category-buttons button.active,
+.category-buttons button:hover{
+  background:var(--dark);
+  color:#fff
+}
+
+/* MENU */
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:25px
+}
+
+.menu-card{
+  background:#fff;
+  border-radius:20px;
+  overflow:hidden;
+  transition:.4s
+}
+
+.menu-card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 20px 50px rgba(50,35,20,.1)
+}
+
+.menu-img{
+  height:260px;
+  position:relative;
+  overflow:hidden
+}
+
+.menu-img img{
+  height:100%;
+  transition:.6s
+}
+
+.menu-card:hover .menu-img img{
+  transform:scale(1.08)
+}
+
+.menu-img span{
+  position:absolute;
+  top:15px;
+  left:15px;
+  background:#fff;
+  padding:7px 11px;
+  font-size:9px;
+  font-weight:bold;
+  border-radius:20px
+}
+
+.menu-info{
+  padding:22px
+}
+
+.menu-info h3{
+  font-family:"Playfair Display";
+  font-size:22px
+}
+
+.menu-info p{
+  color:var(--muted);
+  font-size:12px;
+  margin:8px 0 20px
+}
+
+.price-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center
+}
+
+.price-row strong{
+  color:var(--brown)
+}
+
+.price-row button{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:0;
+  background:var(--dark);
+  color:#fff;
+  font-size:20px
+}
+
+/* ABOUT */
+.about{
+  padding:120px 7%;
+  background:var(--dark);
+  color:#fff;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:90px;
+  align-items:center
+}
+
+.about-image img{
+  height:650px;
+  border-radius:20px
+}
+
+.about-content p:not(.eyebrow){
+  color:#b9afa5;
+  line-height:1.8;
+  margin:25px 0;
+  max-width:500px
+}
+
+.about-content h2 span{
+  color:#c89b70
+}
+
+/* GALLERY */
+.gallery{
+  display:grid;
+  grid-template-columns:1.3fr .7fr .7fr;
+  grid-template-rows:250px 250px;
+  gap:15px
+}
+
+.gallery img{
+  height:100%;
+  border-radius:15px
+}
+
+.gallery img:first-child{
+  grid-row:span 2
+}
+
+.gallery img:last-child{
+  grid-column:span 2
+}
+
+/* REVIEWS */
+.review-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px
+}
+
+.review-card{
+  background:#fff;
+  padding:35px;
+  border-radius:20px
+}
+
+.stars{
+  color:var(--brown);
+  letter-spacing:4px;
+  margin-bottom:20px
+}
+
+.review-card p{
+  line-height:1.8;
+  color:var(--muted);
+  margin-bottom:20px
+}
+
+.review-card strong{
+  font-size:13px
+}
+
+/* CONTACT */
+.contact{
+  padding:110px 7%;
+  background:var(--cream);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:center
+}
+
+.contact>div>p:not(.eyebrow){
+  color:#6d6258;
+  line-height:1.8;
+  margin-top:25px
+}
+
+.contact-box{
+  background:#fff;
+  padding:40px;
+  border-radius:20px
+}
+
+.contact-box h3{
+  font-family:"Playfair Display";
+  font-size:28px;
+  margin-bottom:25px
+}
+
+.contact-box input{
+  display:block;
+  width:100%;
+  padding:15px;
+  margin-bottom:12px;
+  border:1px solid #ddd3c8;
+  border-radius:10px;
+  outline:none
+}
+
+.contact-box input:focus{
+  border-color:var(--brown)
+}
+
+.contact-box .btn{
+  width:100%
+}
+
+/* FOOTER */
+footer{
+  padding:60px 7%;
+  background:#100d0a;
+  color:#fff;
+  text-align:center
+}
+
+footer p{
+  color:#887d73;
+  margin:12px 0 25px
+}
+
+.social{
+  display:flex;
+  justify-content:center;
+  gap:25px;
+  font-size:13px;
+  margin-bottom:30px
+}
+
+.social a:hover{
+  color:#c89b70
+}
+
+footer small{
+  color:#615850
+}
+
+/* CART */
+.cart-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.6);
+  z-index:5000;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  padding:20px
+}
+
+.cart-modal.show{
+  display:flex
+}
+
+.cart-content{
+  width:500px;
+  max-width:100%;
+  max-height:90vh;
+  overflow-y:auto;
+  background:var(--bg);
+  padding:40px;
+  border-radius:25px;
+  position:relative
+}
+
+.close{
+  position:absolute;
+  right:25px;
+  top:20px;
+  border:0;
+  background:none;
+  font-size:30px
+}
+
+.cart-content h2{
+  font-size:45px;
+  margin-bottom:30px
+}
+
+.cart-item{
+  display:flex;
+  justify-content:space-between;
+  padding:15px 0;
+  border-bottom:1px solid #ddd2c6
+}
+
+.cart-item small{
+  display:block;
+  color:var(--muted);
+  margin-top:5px
+}
+
+.remove{
+  border:0;
+  background:none;
+  color:#a33
+}
+
+.cart-total{
+  display:flex;
+  justify-content:space-between;
+  padding:25px 0;
+  font-size:18px
+}
+
+.checkout{
+  width:100%
+}
+
+/* TABLET */
+@media(max-width:850px){
+
+  .navbar{
+    padding:0 5%
+  }
+
+  nav{
+    position:absolute;
+    top:80px;
+    left:0;
+    width:100%;
+    background:var(--bg);
+    flex-direction:column;
+    padding:25px;
+    transform:translateY(-150%);
+    transition:.4s
+  }
+
+  nav.show{
+    transform:translateY(0)
+  }
+
+  .menu-toggle{
+    display:block
+  }
+
+  .cart-btn{
+    margin-left:auto;
+    margin-right:15px
+  }
+
+  .hero{
+    grid-template-columns:1fr;
+    padding-top:130px
+  }
+
+  .hero-image{
+    order:-1
+  }
+
+  .hero-image img{
+    height:480px
+  }
+
+  .circle{
+    right:-20px
+  }
+
+  .feature{
+    grid-template-columns:1fr
+  }
+
+  .menu-grid{
+    grid-template-columns:repeat(2,1fr)
+  }
+
+  .about{
+    grid-template-columns:1fr;
+    gap:40px
+  }
+
+  .about-image img{
+    height:450px
+  }
+
+  .review-grid{
+    grid-template-columns:1fr
+  }
+
+  .contact{
+    grid-template-columns:1fr
+  }
+}
+
+/* MOBILE */
+@media(max-width:550px){
+
+  h1{
+    font-size:53px
+  }
+
+  .hero{
+    padding-left:5%;
+    padding-right:5%
+  }
+
+  .hero-image img{
+    height:400px
+  }
+
+  .stats{
+    justify-content:space-between
+  }
+
+  .stats strong{
+    font-size:22px
+  }
+
+  .stats span{
+    font-size:9px
+  }
+
+  .menu-section,
+  .gallery-section,
+  .reviews,
+  .contact,
+  .about{
+    padding-left:5%;
+    padding-right:5%
+  }
+
+  .section-heading{
+    display:block
+  }
+
+  .section-heading>p{
+    margin-top:20px
+  }
+
+  .menu-grid{
+    grid-template-columns:1fr
+  }
+
+  .gallery{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:200px 200px 200px
+  }
+
+  .gallery img:first-child,
+  .gallery img:last-child{
+    grid-row:auto;
+    grid-column:auto
+  }
+
+  .contact-box{
+    padding:25px
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOADER -->
+<div class="loader">
+  <div class="coffee-loader">☕</div>
+  <p>AROMA</p>
+</div>
+
+<!-- NAVBAR -->
+<header class="navbar">
+
+  <a href="#home" class="logo">
+    AROMA<span>.</span>
+  </a>
+
+  <nav id="nav">
+    <a href="#home">Home</a>
+    <a href="#menu">Menu</a>
+    <a href="#about">About</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <button class="cart-btn" onclick="openCart()">
+    🛒 <span id="cartCount">0</span>
+  </button>
+
+  <button class="menu-toggle" onclick="toggleMenu()">
+    ☰
+  </button>
+
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+
+  <div class="hero-content">
+
+    <p class="eyebrow">
+      SPECIALTY COFFEE • EST. 2026
+    </p>
+
+    <h1>
+      Coffee made <span>beautiful.</span>
+    </h1>
+
+    <p class="hero-text">
+      Nikmati secangkir kopi berkualitas dengan suasana hangat
+      yang dibuat untuk menemani setiap cerita.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#menu" class="btn primary">
+        Explore Menu →
+      </a>
+
+      <a href="#about" class="btn secondary">
+        Our Story
+      </a>
+    </div>
+
+    <div class="stats">
+
+      <div>
+        <strong>12+</strong>
+        <span>Signature Coffee</span>
+      </div>
+
+      <div>
+        <strong>4.9</strong>
+        <span>Customer Rating</span>
+      </div>
+
+      <div>
+        <strong>7K+</strong>
+        <span>Cups Served</span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="hero-image">
+
+    <div class="circle"></div>
+
+    <img
+      src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=85"
+      alt="Coffee"
+    >
+
+  </div>
+
+</section>
+
+<!-- FEATURES -->
+<section class="feature">
+
+  <div class="feature-card">
+
+    <div class="feature-icon">☕</div>
+
+    <div>
+      <h3>Premium Beans</h3>
+      <p>100% biji kopi pilihan.</p>
+    </div>
+
+  </div>
+
+  <div class="feature-card">
+
+    <div class="feature-icon">♨</div>
+
+    <div>
+      <h3>Freshly Brewed</h3>
+      <p>Diracik fresh setiap hari.</p>
+    </div>
+
+  </div>
+
+  <div class="feature-card">
+
+    <div class="feature-icon">♡</div>
+
+    <div>
+      <h3>Made With Love</h3>
+      <p>Dibuat dengan sepenuh hati.</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+
+  <div class="section-heading">
+
+    <div>
+
+      <p class="eyebrow">
+        OUR MENU
+      </p>
+
+      <h2>
+        Find your <span>favorite.</span>
+      </h2>
+
+    </div>
+
+    <p>
+      Dari kopi klasik sampai signature blend,
+      semuanya dibuat dari bahan pilihan.
+    </p>
+
+  </div>
+
+  <div class="category-buttons">
+
+    <button
+      class="active"
+      onclick="filterMenu('all',this)"
+    >
+      All
+    </button>
+
+    <button onclick="filterMenu('coffee',this)">
+      Coffee
+    </button>
+
+    <button onclick="filterMenu('noncoffee',this)">
+      Non Coffee
+    </button>
+
+    <button onclick="filterMenu('food',this)">
+      Food
+    </button>
+
+  </div>
+
+  <div class="menu-grid">
+
+    <!-- CARAME L MACCHIATO -->
+    <div class="menu-card" data-category="coffee">
+
+      <div class="menu-img">
+
+        <img
+          src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=600&q=80"
+          alt="Caramel Macchiato"
+        >
+
+        <span>BEST SELLER</span>
+
+      </div>
+
+      <div class="menu-info">
+
+        <h3>Caramel Macchiato</h3>
+
+        <p>
+          Espresso, fresh milk & caramel.
+        </p>
+
+        <div class="price-row">
+
+          <strong>Rp 28.000</strong>
+
+          <button
+            onclick="addCart('Caramel Macchiato',28000,this)"
+          >
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ICED AMERICANO -->
+    <div class="menu-card" data-category="coffee">
+
+      <div class="menu-img">
+
+        <img
+          src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=600&q=80"
+          alt="Iced Americano"
+        >
+
+      </div>
+
+      <div class="menu-info">
+
+        <h3>Iced Americano</h3>
+
+        <p>
+          Espresso, cold water & ice.
+        </p>
+
+        <div class="price-row">
+
+          <strong>Rp 22.000</strong>
+
+          <button
+            onclick="addCart('Iced Americano',22000,this)"
+          >
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CAFFE LATTE -->
+    <div class="menu-card" data-category="coffee">
+
+      <div class="menu-img">
+
+        <img
+          src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&w=600&q=80"
+          alt="Caffe Latte"
+        >
+
+      </div>
+
+      <div class="menu-info">
+
+        <h3>Caffe Latte</h3>
+
+        <p>
+          Espresso dengan steamed milk.
+        </p>
+
+        <div class="price-row">
+
+          <strong>Rp 25.000</strong>
+
+          <button
+            onclick="addCart('Caffe Latte',25000,this)"
+          >
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- MATCHA -->
+    <div class="menu-card" data-category="noncoffee">
+
+      <div class="menu-img">
+
+        <img
+          src="https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=600&q=80"
+          alt="Matcha Latte"
+        >
+
+      </div>
+
+      <div class="menu-info">
+
+        <h3>Matcha Latte</h3>
+
+        <p>
+          Premium Japanese matcha & milk.
+        </p>
+
+        <div class="price-row">
+
+          <strong>Rp 27.000</strong>
+
+          <button
+            onclick="addCart('Matcha Latte',27000,this)"
+          >
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CHOCOLATE -->
+    <div class="menu-card" data-category="noncoffee">
+
+      <div class="menu-img">
+
+        <img
+          src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=600&q=80"
+          alt="Chocolate Cream"
+        >
+
+      </div>
+
+      <div class="menu-info">
+
+        <h3>Chocolate Cream</h3>
+
+        <p>
+          Rich chocolate & creamy milk.
+        </p>
+
+        <div class="price-row">
+
+          <strong>Rp 26.000</strong>
+
+          <button
+            onclick="addCart('Chocolate Cream',26000,this)"
+          >
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- CROISSANT -->
+    <div class="menu-card" data-category="food">
+
+      <div class="menu-img">
+
+        <img
+          src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80"
+          alt="Butter Croissant"
+        >
+
+      </div>
+
+      <div class="menu-info">
+
+        <h3>Butter Croissant</h3>
+
+        <p>
+          French butter croissant.
+        </p>
+
+        <div class="price-row">
+
+          <strong>Rp 20.000</strong>
+
+          <button
+            onclick="addCart('Butter Croissant',20000,this)"
+          >
+            +
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+
+  <div class="about-image">
+
+    <img
+      src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=900&q=85"
+      alt="Coffee shop"
+    >
+
+  </div>
+
+  <div class="about-content">
+
+    <p class="eyebrow">
+      OUR STORY
+    </p>
+
+    <h2>
+      More than just <span>coffee.</span>
+    </h2>
+
+    <p>
+      AROMA lahir dari kecintaan terhadap kopi
+      dan keinginan untuk menciptakan tempat
+      di mana orang bisa berhenti sejenak dari kesibukan.
+    </p>
+
+    <p>
+      Kami memilih biji kopi terbaik dan meraciknya
+      dengan proses yang penuh perhatian agar setiap
+      tegukan punya cerita.
+    </p>
+
+    <a href="#contact" class="btn primary">
+      Visit Us →
+    </a>
+
+  </div>
+
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+
+  <div class="section-heading center">
+
+    <p class="eyebrow">
+      OUR SPACE
+    </p>
+
+    <h2>
+      A place to <span>slow down.</span>
+    </h2>
+
+  </div>
+
+  <div class="gallery">
+
+    <img
+      src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&fit=crop&w=700&q=80"
+      alt="Interior"
+    >
+
+    <img
+      src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=700&q=80"
+      alt="Cafe"
+    >
+
+    <img
+      src="https://images.unsplash.com/photo-1493857671505-72967e2e2760?auto=format&fit=crop&w=700&q=80"
+      alt="Coffee"
+    >
+
+    <img
+      src="https://images.unsplash.com/photo-1442975631115-c4f7b05b8a2c?auto=format&fit=crop&w=700&q=80"
+      alt="Coffee space"
+    >
+
+  </div>
+
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+
+  <div class="section-heading center">
+
+    <p class="eyebrow">
+      CUSTOMER LOVE
+    </p>
+
+    <h2>
+      What they <span>say.</span>
+    </h2>
+
+  </div>
+
+  <div class="review-grid">
+
+    <div class="review-card">
+
+      <div class="stars">
+        ★★★★★
+      </div>
+
+      <p>
+        “Tempatnya nyaman banget. Kopinya juga enak,
+        terutama caramel macchiatonya!”
+      </p>
+
+      <strong>— Raka</strong>
+
+    </div>
+
+    <div class="review-card">
+
+      <div class="stars">
+        ★★★★★
+      </div>
+
+      <p>
+        “Interiornya aesthetic dan cocok banget
+        buat nongkrong atau ngerjain tugas.”
+      </p>
+
+      <strong>— Naya</strong>
+
+    </div>
+
+    <div class="re
